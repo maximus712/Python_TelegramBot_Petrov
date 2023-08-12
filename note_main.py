@@ -53,7 +53,6 @@ def delete_note(note_name):
 
 
 def choice_note():
-    
     chek = input("если передумали введите (нет): ")
     return chek
 
@@ -63,16 +62,23 @@ def display_notes():
     print("Список заметок")
     print(*notes,sep="\n")
 
+def display_sorted_notes():
+    notes = sorted([note.strip(".txt") for note in os.listdir() if note.endswith(".txt")],key=len)
+    print("Список заметок")
+    print(*notes,sep="\n")
+
+
+
 if __name__ =="__main__":
 
-    note_list=[]
+    
     
     while True:
         print("Что будем делать\n 1.Создать заметку\n 2.Изменить заметку\n 3.Удалить заметку\n 4.Выйти\n 5.Список заметок\n  ")
         do = input("Введите номер: ")
         if do == "1":
             create_note()
-            note_list.append(note_name)
+            
             
         if do == "2":
             print("Выберите заметку которую хотите изменить: ")
@@ -89,13 +95,16 @@ if __name__ =="__main__":
             display_notes()
             chek = choice_note()
             if chek in [note.strip(".txt") for note in os.listdir() if note.endswith(".txt")]:
-                delete_note(chek)
-                
+                delete_note(chek)   
             elif chek == "нет":
                 print("ОК")
             else:
                 print(f"Блокнота {chek}.txt не найдено")
         if do == "5":
-             display_notes()
+            make_sort = input("Вывести список отсортированным? (y/n): ")
+            if make_sort.lower()=='y':
+                display_sorted_notes()
+            else:
+                display_notes()
         if do == "4":
             break
