@@ -52,11 +52,15 @@ def delete_note(note_name):
         not_file(note_name)
 
 
-def choice_note(note_list):
-    print(*note_list)
+def choice_note():
+    
     chek = input("если передумали введите (нет): ")
     return chek
 
+def display_notes():
+    notes = [note.strip(".txt") for note in os.listdir() if note.endswith(".txt")]
+    print("Список заметок")
+    print(*notes,sep="\n")
 
 if __name__ =="__main__":
 
@@ -70,8 +74,10 @@ if __name__ =="__main__":
             note_list.append(note_name)
             
         if do == "2":
-            chek = choice_note(note_list)
-            if chek in note_list:
+            print("Выберите заметку которую хотите изменить: ")
+            display_notes()
+            chek = choice_note()
+            if chek in [note.strip(".txt") for note in os.listdir() if note.endswith(".txt")]:
                 edit_note(chek)
             elif chek == "нет":
                 print("ОК")
@@ -79,20 +85,16 @@ if __name__ =="__main__":
                 print(f"Блокнота {chek}.txt не найдено")
         if do == "3":
             print("Выберите заметку которую хотите удалить: ")
-            chek = choice_note(note_list)
-            if chek in note_list:
+            display_notes()
+            chek = choice_note()
+            if chek in [note.strip(".txt") for note in os.listdir() if note.endswith(".txt")]:
                 delete_note(chek)
-                note_list.remove(chek)
+                
             elif chek == "нет":
                 print("ОК")
             else:
                 print(f"Блокнота {chek}.txt не найдено")
         if do == "5":
-            if len(note_list)== 0:
-                print("Нет созданных заметок\n")
-            else:
-                print(*note_list)  
+             display_notes()
         if do == "4":
             break
-    
-   
