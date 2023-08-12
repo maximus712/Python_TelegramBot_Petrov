@@ -59,6 +59,7 @@ def choice_note():
 
 def display_notes():
     notes = [note.strip(".txt") for note in os.listdir() if note.endswith(".txt")]
+    sorted(notes,key=len)
     print("Список заметок")
     print(*notes,sep="\n")
 
