@@ -7,9 +7,12 @@ def not_file(note_name):
     print(f"Файла с названием {note_name}.txt не существует ")
 
 def build_note(note_text, note_name):
-    with open(f"{note_name}.txt", "w", encoding="utf-8") as file:
-        file.write(note_text)
-    print(f"Заметка {note_name} создана.")
+    try:
+        with open(f"{note_name}.txt", "w", encoding="utf-8") as file:
+            file.write(note_text)
+        print(f"Заметка {note_name} создана.")
+    except:
+        print("Произошла ошибка")
 
 def create_note(): 
     global note_name
@@ -37,18 +40,20 @@ def read_note_2(note_name):
 
 
 def edit_note(note_name):
-    if os.path.isfile(f"{note_name}.txt"):
+    try:
+        os.path.isfile(f"{note_name}.txt")
         note_text = input("Введите текст заметки: ")
         build_note(note_text, note_name)
-    else:
+    except:
         not_file(note_name)
 
 
 def delete_note(note_name):
-    if os.path.isfile(f"{note_name}.txt"):
+    try:
+        os.path.isfile(f"{note_name}.txt")
         os.remove(f"{note_name}.txt")
         print(f"Заметка {note_name}.txt удалена")
-    else:
+    except:
         not_file(note_name)
 
 
